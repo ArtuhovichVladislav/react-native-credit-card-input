@@ -9,11 +9,7 @@ import {
   ViewPropTypes,
 } from "react-native";
 
-const s = StyleSheet.create({
-  baseInputStyle: {
-    color: "black",
-  },
-});
+import { Input } from 'react-native-ui-kitten';
 
 export default class CCInput extends Component {
   static propTypes = {
@@ -68,28 +64,20 @@ export default class CCInput extends Component {
 
   render() {
     const { label, value, placeholder, status, keyboardType,
-            containerStyle, inputStyle, labelStyle,
-            validColor, invalidColor, placeholderColor,
-            additionalInputProps } = this.props;
+            containerStyle, labelStyle,
+            validColor, invalidColor } = this.props;
     return (
       <TouchableOpacity onPress={this.focus}
         activeOpacity={0.99}>
         <View style={[containerStyle]}>
           { !!label && <Text style={[labelStyle]}>{label}</Text>}
-          <TextInput ref="input"
-            {...additionalInputProps}
+          <Input ref="input"
             keyboardType={keyboardType}
-            autoCapitalise="words"
-            autoCorrect={false}
             style={[
-              s.baseInputStyle,
-              inputStyle,
               ((validColor && status === "valid") ? { color: validColor } :
               (invalidColor && status === "invalid") ? { color: invalidColor } :
               {}),
             ]}
-            underlineColorAndroid={"transparent"}
-            placeholderTextColor={placeholderColor}
             placeholder={placeholder}
             value={value}
             onFocus={this._onFocus}
